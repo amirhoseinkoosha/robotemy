@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+@import 'tailwindcss';
+
+@media (hover: hover) and (pointer: fine) {
+  body,
+  body *,
+  a,
+  button,
+  [role='button'] {
+    cursor: none !important;
+  }
+
+  input,
+  textarea,
+  [contenteditable='true'] {
+    cursor: text !important;
+  }
+}
+
+@theme {
+  --font-sans: 'Vazirmatn', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --color-brand-primary: #10b981;
+  --color-brand-secondary: #064e3b;
+  --color-bg-dark: #020617;
+  --color-card-bg: #0f172a;
+}
+
+body {
+  background-color: var(--color-bg-dark);
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+.glass-nav {
+  background: rgba(2, 6, 23, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hero-mesh {
+  background-image: radial-gradient(at 0% 0%, hsla(160, 84%, 39%, 0.15) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(160, 84%, 39%, 0.1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(160, 84%, 39%, 0.15) 0, transparent 50%);
+}
+
+.hero-grid {
+  background-size: 50px 50px;
+  background-image: linear-gradient(to right, rgba(16, 185, 129, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(16, 185, 129, 0.07) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 10%, transparent 80%);
+}
+
+.glow-card {
+  position: relative;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, transparent, rgba(16, 185, 129, 0.3), transparent);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-card:hover::before {
+  opacity: 1;
+}
+
+.neon-text {
+  text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
