@@ -20,6 +20,10 @@ import { HeroEquityCurve } from "@/components/hero/HeroEquityCurve";
 import { translations, type Language } from "@/i18n/translations";
 import type { ScrollToLocationState } from "@/types/navigation";
 
+/** Share page (/s/…) is HTML and sends X-Frame-Options; use direct MP4 for streaming. */
+const PROMO_VIDEO_SRC =
+  "https://gift.nodisk.ir/s/y7BCYEesnHLXPoz/download/ok.mp4";
+
 export const HomePage = ({ lang }: { lang: Language }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [VideoShow, SetVideoShow] = useState<boolean>(false);
@@ -105,11 +109,14 @@ export const HomePage = ({ lang }: { lang: Language }) => {
 
         <div className="max-w-7xl mx-auto text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 200 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "backOut" }}
+            transition={{ delay: 1.7, duration: 0.8, ease: "easeOut" }}
           >
-            <h1
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.5, duration: 0.8, ease: "easeOut" }}
               className={`text-4xl sm:text-6xl md:text-8xl font-black mb-6 md:mb-8 leading-[1.1] text-white ${lang === "en" ? "tracking-tight" : ""}`}
             >
               {t.hero.title1} <br />
@@ -117,10 +124,15 @@ export const HomePage = ({ lang }: { lang: Language }) => {
               <span className="text-emerald-500 animate-pulse">
                 {t.hero.title3}
               </span>
-            </h1>
-            <p className="text-slate-400 text-base sm:text-lg md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed">
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 2.9, duration: 0.8, ease: "easeOut" }}
+              className="text-slate-400 text-base sm:text-lg md:text-2xl max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed"
+            >
               {t.hero.subtitle}
-            </p>
+            </motion.p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-24">
               <motion.button
@@ -185,10 +197,13 @@ export const HomePage = ({ lang }: { lang: Language }) => {
                   }`}
                 >
                   <video
-                    src="https://gift.nodisk.ir/s/y7BCYEesnHLXPoz"
+                    src={PROMO_VIDEO_SRC}
                     controls
+                    playsInline
                     autoPlay
-                    className="w-full h-full object-contain bg-[#111827] outline-none   "
+                    muted
+                    preload="metadata"
+                    className="w-full h-full object-contain bg-[#111827] outline-none"
                   />
 
                   {/* Controls */}
@@ -209,7 +224,7 @@ export const HomePage = ({ lang }: { lang: Language }) => {
                       onClick={() => SetVideoShow(false)}
                       className="rounded-full bg-slate-800/80 hover:bg-slate-700/80 text-white w-11 h-11 flex items-center justify-center transition-colors border border-white/10 text-2xl leading-none"
                       aria-label="Close video"
-                      title="close"
+                      title="Close"
                     >
                       ×
                     </button>
@@ -227,9 +242,9 @@ export const HomePage = ({ lang }: { lang: Language }) => {
 
         <motion.div
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 z-10 cursor-pointer"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 1 }}
+          initial={{ opacity: 0, y: 200 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.9, duration: 1 }}
           onClick={() =>
             document
               .getElementById("services")
@@ -241,13 +256,14 @@ export const HomePage = ({ lang }: { lang: Language }) => {
           </div>
           <div className="w-5 h-8 border-2 border-slate-700/50 rounded-full flex justify-center p-1">
             <motion.div
-              className="w-1 h-1.5 bg-emerald-500 rounded-full"
+              initial={{ y: 0, opacity: 1 }}
               animate={{ y: [0, 12, 0], opacity: [1, 0.5, 1] }}
               transition={{
                 duration: 1.5,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
+              className="w-1 h-1.5 bg-emerald-500 rounded-full"
             />
           </div>
         </motion.div>
@@ -424,11 +440,11 @@ export const HomePage = ({ lang }: { lang: Language }) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {[
-                {
-                  icon: <Phone />,
-                  label: t.contact.phoneLabel,
-                  val: "+98 21 8888 8888",
-                },
+                // {
+                //   icon: <Phone />,
+                //   label: t.contact.phoneLabel,
+                //   val: "+98 21 8888 8888",
+                // },
                 {
                   icon: <Mail />,
                   label: t.contact.emailLabel,
